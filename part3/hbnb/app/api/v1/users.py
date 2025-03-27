@@ -40,6 +40,60 @@ user_response_model = api.model('UserResponse', {
     'updated_at': fields.String(description='Date de dernière mise à jour')
 })
 
+# Définition du modèle pour la connexion utilisateur
+login_model = api.model('Login', {
+    'email': fields.String(required=True, description='Adresse email'),
+    'password': fields.String(required=True, description='Mot de passe de l\'utilisateur')
+})
+
+# Définition du modèle de réponse pour le token JWT
+token_model = api.model('Token', {
+    'access_token': fields.String(description='Token JWT d\'accès')
+})
+
+@api.route('/login')
+class UserLogin(Resource):
+    """
+    Endpoint d'authentification permettant aux utilisateurs de se connecter.
+    Vérifie les identifiants et renvoie un token JWT en cas de succès.
+    """
+    
+    @api.doc('user_login')
+    @api.expect(login_model, validate=True)
+    @api.response(200, 'Connexion réussie', token_model)
+    @api.response(401, 'Identifiants invalides')
+    def post(self):
+        """
+        Endpoint de connexion utilisateur.
+        
+        Reçoit email et mot de passe, vérifie les identifiants et renvoie un token JWT.
+        
+        Returns:
+            dict: Contenant le token JWT d'accès si la connexion est réussie
+            
+        Raises:
+            401: Si les identifiants sont invalides
+            500: En cas d'erreur serveur
+        """
+        # Récupère les données envoyées dans le corps de la requête
+        data = api.payload
+        
+        try:
+            # Appel à la façade pour authentifier l'utilisateur
+            token = facade.authenticate_user(data['email'], data['password'])
+            
+            # Si l'authentification échoue (token est None)
+            if not token:
+                # Renvoie une erreur 401 Unauthorized
+                api.abort(401, 'Identifiants invalides')
+                
+            # Authentification réussie : renvoie le token JWT
+            return {'access_token': token}
+            
+        except Exception as e:
+            # En cas d'erreur inattendue, renvoie une erreur 500 avec le message d'erreur
+            api.abort(500, str(e))
+
 @api.route('/')
 class UserList(Resource):
     """
@@ -55,7 +109,8 @@ class UserList(Resource):
         Returns:
             list: Liste des utilisateurs enregistrés
         """
-        return facade.get_all_users()
+        users = facade.get_all_users()
+        return [user.to_dict() for user in users]
     
     @api.doc('create_user')
     @api.expect(user_model, validate=True)
@@ -64,13 +119,14 @@ class UserList(Resource):
     @api.response(400, 'Données d\'entrée invalides')
     @api.response(401, 'Non authentifié')
     @api.response(403, 'Action non autorisée')
-    @jwt_required(optional=True)
+    @jwt_required()  # Authentification requise pour créer un utilisateur
     def post(self):
         """
         Crée un nouvel utilisateur.
         
-        Si l'utilisateur crée son premier compte (non connecté), il peut le faire.
-        Si l'utilisateur est déjà connecté, il doit être administrateur pour créer d'autres utilisateurs.
+        Règles d'autorisation:
+        1. Seul un utilisateur authentifié avec des privilèges d'administrateur peut créer des comptes
+        2. Exception: si aucun utilisateur n'existe dans la base de données, le premier compte peut être créé sans authentification
         
         Returns:
             dict: Informations de l'utilisateur créé
@@ -80,20 +136,27 @@ class UserList(Resource):
             401: Si l'utilisateur n'est pas authentifié
             403: Si l'utilisateur connecté n'a pas les privilèges d'administrateur
         """
-        # Vérifier si l'utilisateur est connecté
-        current_user_id = get_jwt_identity()
-        
-        # Si l'utilisateur est connecté, il doit être admin pour créer d'autres utilisateurs
-        if current_user_id:
-            claims = get_jwt()
-            is_admin = claims.get('is_admin', False)
-            
-            if not is_admin:
-                api.abort(403, "Admin privileges required")
-        
         try:
-            user = facade.create_user(api.payload)
-            return user, 201
+            # Vérifier s'il s'agit du premier utilisateur (amorçage du système)
+            is_first_user = len(facade.get_all_users()) == 0
+            
+            # Si ce n'est pas le premier utilisateur, vérifier les autorisations
+            if not is_first_user:
+                # Vérifier si l'utilisateur est admin
+                claims = get_jwt()
+                is_admin = claims.get('is_admin', False)
+                
+                if not is_admin:
+                    api.abort(403, "Admin privileges required to create users")
+            
+            # Copier les données d'entrée pour pouvoir les modifier
+            user_data = api.payload.copy()
+            
+            # Si c'est le premier utilisateur, permettre qu'il soit admin
+            # Sinon, respecter la valeur is_admin fournie par l'administrateur
+            
+            user = facade.create_user(user_data)
+            return user.to_dict(), 201
         except ValueError as e:
             api.abort(400, str(e))
 
@@ -105,6 +168,7 @@ class UserResource(Resource):
     Permet de récupérer, mettre à jour ou supprimer un utilisateur spécifique.
     """
     @api.doc('get_user')
+    @api.marshal_with(user_response_model)
     @api.response(200, 'Succès', user_response_model)
     @api.response(404, 'Utilisateur non trouvé')
     def get(self, user_id):
@@ -123,7 +187,7 @@ class UserResource(Resource):
         user = facade.get_user(user_id)
         if not user:
             api.abort(404, f"Utilisateur avec l'id {user_id} non trouvé")
-        return user
+        return user.to_dict()
     
     @api.doc('update_user')
     @api.expect(user_update_model)
@@ -169,7 +233,7 @@ class UserResource(Resource):
             user = facade.update_user(user_id, update_data)
             if not user:
                 api.abort(404, f"Utilisateur avec l'id {user_id} non trouvé")
-            return user
+            return user.to_dict()
         except ValueError as e:
             api.abort(400, str(e))
             

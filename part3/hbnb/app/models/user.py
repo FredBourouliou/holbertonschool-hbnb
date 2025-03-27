@@ -94,10 +94,10 @@ class User(BaseModel):
         # Génère un hash bcrypt du mot de passe
         self._password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
     
-    # Méthode existante renommée comme alias de hash_password pour la compatibilité
+    # Alias de hash_password pour maintenir la compatibilité avec le code existant
     def set_password(self, password):
         """
-        Alias de hash_password pour maintenir la compatibilité.
+        Alias de hash_password pour maintenir la compatibilité avec le code existant.
         
         Args:
             password (str): Mot de passe en texte brut à hacher
@@ -119,10 +119,10 @@ class User(BaseModel):
         # Compare le hash stocké avec un hash du mot de passe fourni
         return bcrypt.check_password_hash(self._password_hash, password)
     
-    # Méthode existante renommée comme alias de verify_password pour la compatibilité
+    # Alias de verify_password pour maintenir la compatibilité avec le code existant
     def check_password(self, password):
         """
-        Alias de verify_password pour maintenir la compatibilité.
+        Alias de verify_password pour maintenir la compatibilité avec le code existant.
         
         Args:
             password (str): Mot de passe à vérifier

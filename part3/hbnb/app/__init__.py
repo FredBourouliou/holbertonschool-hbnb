@@ -12,16 +12,16 @@ from app.api.v1.amenities import api as amenities_ns
 from app.api.v1.places import api as places_ns
 from app.api.v1.reviews import api as reviews_ns
 from app.api.v1.auth import api as auth_ns
-from config import config  # Configurations pour différents environnements
+from config import DevelopmentConfig, config  # Configurations pour différents environnements
 from app.extensions import bcrypt, jwt, db  # Extensions Flask importées depuis extensions.py
 import os
 
-def create_app(config_name='default'):
+def create_app(config_class=DevelopmentConfig):
     """
     Fonction factory qui crée une instance de l'application Flask.
     
     Args:
-        config_name (str): Nom de la configuration à utiliser ('development', 'production', 'testing' ou 'default')
+        config_class: La classe de configuration à utiliser (par défaut: DevelopmentConfig)
     
     Returns:
         Flask: Instance configurée de l'application Flask
@@ -29,8 +29,8 @@ def create_app(config_name='default'):
     # Création de l'instance Flask
     app = Flask(__name__)
     
-    # Chargement de la configuration appropriée depuis l'objet config
-    app.config.from_object(config[config_name])
+    # Chargement de la configuration appropriée depuis l'objet config_class
+    app.config.from_object(config_class)
     
     # Initialisation des extensions
     bcrypt.init_app(app)  # Pour le hachage des mots de passe

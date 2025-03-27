@@ -11,6 +11,7 @@ from app.models.place import Place  # Modèle des logements
 from app.models.review import Review  # Modèle des avis
 from app.models.amenity import Amenity  # Modèle des commodités
 from app import create_app  # Factory function pour créer l'application
+from config import DevelopmentConfig
 import os
 
 def init_db(app=None):
@@ -28,7 +29,7 @@ def init_db(app=None):
     """
     # Crée une instance d'application si aucune n'est fournie
     if app is None:
-        app = create_app('development')
+        app = create_app(DevelopmentConfig)
     
     # Le contexte d'application est nécessaire pour les opérations de base de données
     with app.app_context():

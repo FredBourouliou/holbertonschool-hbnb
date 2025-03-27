@@ -7,11 +7,12 @@ Il initialise l'application Flask et la base de données.
 
 from app import create_app
 from app.db_init import init_db
+from config import TestingConfig
 import os
 
 # Création de l'instance de l'application Flask en mode test
 # Utiliser le mode test qui utilise une base de données en mémoire
-app = create_app('testing')
+app = create_app(TestingConfig)
 
 # Activer le mode debug pour afficher les erreurs détaillées
 app.debug = True
