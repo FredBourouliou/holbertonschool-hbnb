@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Details - HBnB</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" type="image/png" href="/static/images/icon.png">
+</head>
+<body>
+    <header>
+        <a href="/templates/index.html">
+            <img src="/static/images/logo.png" alt="HBnB Logo" class="logo">
+        </a>
+        <a href="/templates/login.html" class="login-button" id="login-link">Login</a>
+    </header>
+
+    <nav>
+        <a href="/templates/index.html">Home</a>
+        <a href="/templates/login.html">Login</a>
+    </nav>
+
+    <main>
+        <div class="place-details" id="place-details">
+            <div class="place-info">
+                <!-- Place details will be dynamically added here -->
+            </div>
+
+            <div class="reviews">
+                <h2>Reviews</h2>
+                <div id="reviews-list">
+                    <!-- Reviews will be dynamically added here -->
+                </div>
+                <a href="/templates/add_review.html" class="details-button" id="add-review-button">Add Review</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 HBnB. All rights reserved.</p>
+    </footer>
+
+    <script src="/static/js/auth.js"></script>
+    <script src="/static/js/place.js"></script>
+</body>
+</html> 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBnB - Places</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" type="image/png" href="/static/images/icon.png">
+</head>
+<body>
+    <header>
+        <a href="/templates/index.html">
+            <img src="/static/images/logo.png" alt="HBnB Logo" class="logo">
+        </a>
+        <a href="/templates/login.html" class="login-button" id="login-link">Login</a>
+    </header>
+
+    <nav>
+        <a href="/templates/index.html">Home</a>
+        <a href="/templates/login.html">Login</a>
+    </nav>
+
+    <main>
+        <div class="filters">
+            <div class="filter-group">
+                <input type="text" id="location-search" placeholder="Rechercher par ville ou région..." class="search-input">
+                <button id="search-button" class="search-button">Rechercher</button>
+            </div>
+            
+            <select id="price-filter">
+                <option value="all">All Prices</option>
+                <option value="10">Up to €10</option>
+                <option value="50">Up to €50</option>
+                <option value="100">Up to €100</option>
+                <option value="200">Up to €200</option>
+                <option value="300">Up to €300</option>
+            </select>
+        </div>
+
+        <div id="places-list">
+            <!-- Places will be dynamically added here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 HBnB. All rights reserved.</p>
+    </footer>
+
+    <script src="/static/js/auth.js"></script>
+    <script src="/static/js/index.js"></script>
+</body>
+</html> 
