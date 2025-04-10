@@ -104,7 +104,15 @@ document.addEventListener('DOMContentLoaded', () => {
             let imageName = 'placeholder.jpg';
             const title = place.title ? place.title.toLowerCase() : '';
             
-            if (title.includes('admin')) {
+            // Si c'est la maison de l'administrateur, changer l'apparence
+            if (title.includes('feuilles') || (title.includes('admin') && title.includes('maison'))) {
+                imageName = 'maze_labyrinth.jpg';
+                // Modifier la description pour La Maison des Feuilles
+                if (place.description && !place.description.includes('intérieur semble plus vaste')) {
+                    place.title = "La maison des feuilles de l'administrateur";
+                    place.description = "Une demeure étrange où l'intérieur semble plus vaste que l'extérieur. Des couloirs qui changent et des pièces qui apparaissent. Ce logement labyrinthique appartient à l'administrateur.";
+                }
+            } else if (title.includes('admin') && !title.includes('feuilles')) {
                 imageName = 'places/maison_admin.jpg';
             } else if (title.includes('économique') || title.includes('economique')) {
                 imageName = 'places/appartement_economique.jpg';
@@ -133,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="place-price">€${priceValue} par nuit</p>
                 </div>
                 <p>${place.description ? place.description.substring(0, 150) + '...' : 'No description available'}</p>
-                <a href="/templates/place.html?id=${place.id}" class="details-button">View Details</a>
+                <a href="/templates/place.html?id=${place.id}" class="view-details-btn">Voir les détails <i class="fas fa-arrow-right"></i></a>
             `;
             placesList.appendChild(placeCard);
         });

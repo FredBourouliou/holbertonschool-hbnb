@@ -10,7 +10,7 @@ $(document).ready(function() {
 
     // Récupérer l'ID de la place depuis l'URL
     const urlParams = new URLSearchParams(window.location.search);
-    const placeId = urlParams.get('id');
+    const placeId = urlParams.get('place_id');
 
     if (!placeId) {
         window.location.href = '/templates/index.html';

@@ -136,7 +136,15 @@ function renderPlaceDetails(place) {
     let imageName = 'placeholder.jpg';
     const title = place.title ? place.title.toLowerCase() : '';
     
-    if (title.includes('admin')) {
+    // Si c'est la maison de l'administrateur, changer l'apparence
+    if (title.includes('feuilles') || (title.includes('admin') && title.includes('maison'))) {
+        imageName = 'maze_labyrinth.jpg';
+        // Modifier la description pour La Maison des Feuilles
+        if (place.description && !place.description.includes('intérieur semble plus vaste')) {
+            place.title = "La maison des feuilles de l'administrateur";
+            place.description = "Une demeure étrange où l'intérieur semble plus vaste que l'extérieur. Des couloirs qui changent et des pièces qui apparaissent. Ce logement labyrinthique appartient à l'administrateur.";
+        }
+    } else if (title.includes('admin') && !title.includes('feuilles')) {
         imageName = 'places/maison_admin.jpg';
     } else if (title.includes('économique') || title.includes('economique')) {
         imageName = 'places/appartement_economique.jpg';
@@ -158,26 +166,26 @@ function renderPlaceDetails(place) {
         <div class="place-detail-image">
             <img src="/static/images/${imageName}" onerror="this.src='/static/images/placeholder.jpg'" alt="${place.title || 'Logement'}" />
         </div>
-        <h1>${place.title || 'Unnamed Place'}</h1>
-        <p class="price">€${place.price || '0'} per night</p>
-        <p class="description">${place.description || 'No description available'}</p>
+        <h1>${place.title || 'Logement sans nom'}</h1>
+        <p class="price">€${place.price || '0'} par nuit</p>
+        <p class="description">${place.description || 'Aucune description disponible'}</p>
         
         <div class="details">
             <p><strong>Région:</strong> ${locationName}</p>
             <p><strong>Coordonnées:</strong> ${place.latitude || '0'}, ${place.longitude || '0'}</p>
             <p><strong>Propriétaire:</strong> ${place.owner ? 
-                `${place.owner.first_name || ''} ${place.owner.last_name || ''}`.trim() || 'Unknown' 
-                : 'Unknown'}</p>
+                `${place.owner.first_name || ''} ${place.owner.last_name || ''}`.trim() || 'Inconnu' 
+                : 'Inconnu'}</p>
         </div>
 
         <div class="amenities">
-            <h2>Amenities</h2>
+            <h2>Équipements</h2>
             <ul>
                 ${Array.isArray(place.amenities) && place.amenities.length > 0 ? 
                     place.amenities.map(amenity => 
-                        `<li>${amenity.name || 'Unnamed amenity'}</li>`
+                        `<li>${amenity.name || 'Équipement sans nom'}</li>`
                     ).join('') 
-                    : '<li>No amenities listed</li>'
+                    : '<li>Aucun équipement listé</li>'
                 }
             </ul>
         </div>
@@ -185,12 +193,12 @@ function renderPlaceDetails(place) {
 
     // Préparation du HTML pour les reviews
     const reviewsHTML = `
-        <h2>Reviews</h2>
+        <h2>Commentaires</h2>
         <div id="reviews-list">
             ${Array.isArray(place.reviews) && place.reviews.length > 0 ? 
                 place.reviews.map(review => {
                     // Essayer de parser le texte comme JSON pour extraire les évaluations détaillées
-                    let reviewComment = review.text || 'No review text';
+                    let reviewComment = review.text || 'Aucun commentaire';
                     let detailedRatings = null;
                     
                     try {
@@ -239,19 +247,19 @@ function renderPlaceDetails(place) {
                             </div>
                             ${detailedRatingsHTML}
                             <p class="review-text">${reviewComment}</p>
-                            <p class="review-user">By: ${review.user ? 
-                                `${review.user.first_name || ''} ${review.user.last_name || ''}`.trim() || 'Anonymous' 
-                                : 'Anonymous'}</p>
+                            <p class="review-user">Par: ${review.user ? 
+                                `${review.user.first_name || ''} ${review.user.last_name || ''}`.trim() || 'Anonyme' 
+                                : 'Anonyme'}</p>
                             <p class="review-date">${review.created_at ? 
                                 new Date(review.created_at).toLocaleDateString() 
-                                : 'Unknown date'}</p>
+                                : 'Date inconnue'}</p>
                         </div>
                     `;
                 }).join('') 
-                : '<p>No reviews yet</p>'
+                : '<p>Aucun commentaire pour le moment</p>'
             }
         </div>
-        <a href="/templates/add_review.html?id=${place.id}" class="details-button" id="add-review-button">Add Review</a>
+        <a href="/templates/add_review.html?place_id=${place.id}" class="view-details-btn" id="add-review-button">Ajouter un commentaire <i class="fas fa-pen"></i></a>
     `;
 
     // Mise à jour du DOM
@@ -269,15 +277,28 @@ function renderPlaceDetails(place) {
 // Fonction pour configurer le bouton d'ajout de review
 function setupAddReviewButton(placeId) {
     const addReviewButton = document.getElementById('add-review-button');
-    if (addReviewButton && placeId) {
-        addReviewButton.href = `/templates/add_review.html?id=${placeId}`;
-        
+    
+    if (addReviewButton) {
         // Vérifier si l'utilisateur est connecté
         const token = getCookie('token');
+        
         if (!token) {
-            // Cacher le bouton si non connecté
-            addReviewButton.style.display = 'none';
+            // Rediriger vers la page de connexion si pas connecté
+            addReviewButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert("Vous devez être connecté pour ajouter un commentaire.");
+                window.location.href = "/templates/login.html";
+            });
+        } else {
+            // Ajouter l'ID de la place comme paramètre d'URL
+            addReviewButton.href = `/templates/add_review.html?place_id=${placeId}`;
         }
+    }
+    
+    // Vérifier s'il n'y a pas de commentaires et afficher un message
+    const reviewsList = document.getElementById('reviews-list');
+    if (reviewsList && reviewsList.childElementCount === 0) {
+        reviewsList.innerHTML = '<p class="no-reviews">Aucun commentaire pour le moment</p>';
     }
 }
 

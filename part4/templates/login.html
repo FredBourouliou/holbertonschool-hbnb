@@ -1,45 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - HBnB</title>
+    <title>Connexion - HBnB</title>
     <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="icon" type="image/png" href="../static/images/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
         <a href="index.html">
             <img src="../static/images/logo.png" alt="HBnB Logo" class="logo">
         </a>
+        <a href="index.html" class="login-button"><i class="fas fa-home"></i> Retour à l'accueil</a>
     </header>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="login.html">Login</a>
+        <a href="index.html">Accueil</a>
+        <a href="login.html">Connexion</a>
     </nav>
 
     <main>
-        <div class="add-review">
-            <h2>Login</h2>
-            <form id="login-form" class="form">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" required class="form-control">
-                </div>
-                <button type="submit" class="btn btn-primary">Se connecter</button>
-            </form>
+        <div class="login-container">
+            <div class="login-card">
+                <h2>Connexion à votre compte</h2>
+                <p class="login-subtitle">Bienvenue ! Veuillez vous connecter pour accéder à votre compte</p>
+                
+                <form id="login-form" class="form">
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="email" name="email" required class="form-control" placeholder="Entrez votre email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-lock"></i> Mot de passe</label>
+                        <input type="password" id="password" name="password" required class="form-control" placeholder="Entrez votre mot de passe">
+                    </div>
+                    
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">Se souvenir de moi</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="login-button btn-block">Se connecter</button>
+                </form>
 
-            <div id="error-message" class="alert alert-danger mt-3" style="display: none;"></div>
+                <div id="error-message" class="alert alert-danger mt-3" style="display: none;"></div>
+            </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2024 HBnB. All rights reserved.</p>
+        <p>&copy; 2025 HBnB. Tous droits réservés.</p>
     </footer>
 
     <script src="/static/js/auth.js"></script>

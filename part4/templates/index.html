@@ -6,44 +6,78 @@
     <title>HBnB - Places</title>
     <link rel="stylesheet" href="/static/css/styles.css">
     <link rel="icon" type="image/png" href="/static/images/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
         <a href="/templates/index.html">
             <img src="/static/images/logo.png" alt="HBnB Logo" class="logo">
         </a>
-        <a href="/templates/login.html" class="login-button" id="login-link">Login</a>
+        <a href="/templates/login.html" class="login-button" id="login-link">Connexion</a>
     </header>
 
     <nav>
-        <a href="/templates/index.html">Home</a>
-        <a href="/templates/login.html">Login</a>
+        <a href="/templates/index.html">Accueil</a>
+        <a href="/templates/login.html">Connexion</a>
     </nav>
 
     <main>
-        <div class="filters">
-            <div class="filter-group">
-                <input type="text" id="location-search" placeholder="Rechercher par ville ou région..." class="search-input">
-                <button id="search-button" class="search-button">Rechercher</button>
+        <div class="hero-section">
+            <div class="hero-background"></div>
+            <div class="hero-content">
+                <h1>Trouvez votre logement idéal</h1>
+                <p>Découvrez des logements uniques et des expériences à travers le monde</p>
+                <div class="filters">
+                    <div class="filter-group">
+                        <input type="text" id="location-search" placeholder="Rechercher par ville ou région..." class="search-input">
+                        <button id="search-button" class="search-button">Rechercher</button>
+                    </div>
+                    
+                    <select id="price-filter">
+                        <option value="all">Tous les prix</option>
+                        <option value="10">Jusqu'à €10</option>
+                        <option value="50">Jusqu'à €50</option>
+                        <option value="100">Jusqu'à €100</option>
+                        <option value="200">Jusqu'à €200</option>
+                        <option value="300">Jusqu'à €300</option>
+                    </select>
+                </div>
             </div>
-            
-            <select id="price-filter">
-                <option value="all">All Prices</option>
-                <option value="10">Up to €10</option>
-                <option value="50">Up to €50</option>
-                <option value="100">Up to €100</option>
-                <option value="200">Up to €200</option>
-                <option value="300">Up to €300</option>
-            </select>
         </div>
 
         <div id="places-list">
             <!-- Places will be dynamically added here -->
+            <!-- Example card for visual reference -->
+            <div class="place-card">
+                <div class="place-image">
+                    <img src="/static/images/maze_labyrinth.jpg" alt="La maison des feuilles de l'administrateur">
+                </div>
+                <div class="place-card-content">
+                    <div class="place-info">
+                        <h3>La maison des feuilles de l'administrateur</h3>
+                        <div class="place-price">€150 par nuit</div>
+                    </div>
+                    <p class="place-location"><span class="location-icon"></span> Toulouse</p>
+                    <div class="stars">★★★★☆</div>
+                    <p>Une demeure étrange où l'intérieur semble plus vaste que l'extérieur. Des couloirs qui changent et des pièces qui apparaissent. Ce logement labyrinthique appartient à l'administrateur.</p>
+                    <div class="amenity-badges">
+                        <span class="amenity-badge">WiFi</span>
+                        <span class="amenity-badge">Parking</span>
+                        <span class="amenity-badge">Kitchen</span>
+                    </div>
+                    <div class="guest-info">
+                        <span><i class="fas fa-user"></i> 4 voyageurs</span>
+                        <span><i class="fas fa-bed"></i> 2 chambres</span>
+                        <span><i class="fas fa-bath"></i> 1 salle de bain</span>
+                    </div>
+                    <a href="/templates/place.html" class="view-details-btn">Voir les détails <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 HBnB. All rights reserved.</p>
+        <p>&copy; 2025 HBnB. Tous droits réservés.</p>
     </footer>
 
     <script src="/static/js/auth.js"></script>

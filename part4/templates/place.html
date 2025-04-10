@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Place Details - HBnB</title>
+    <title>Détails du logement - HBnB</title>
     <link rel="stylesheet" href="/static/css/styles.css">
     <link rel="icon" type="image/png" href="/static/images/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
         <a href="/templates/index.html">
             <img src="/static/images/logo.png" alt="HBnB Logo" class="logo">
         </a>
-        <a href="/templates/login.html" class="login-button" id="login-link">Login</a>
+        <a href="/templates/login.html" class="login-button" id="login-link">Connexion</a>
     </header>
 
     <nav>
-        <a href="/templates/index.html">Home</a>
-        <a href="/templates/login.html">Login</a>
+        <a href="/templates/index.html">Accueil</a>
+        <a href="/templates/login.html">Connexion</a>
     </nav>
 
     <main>
@@ -27,17 +28,17 @@
             </div>
 
             <div class="reviews">
-                <h2>Reviews</h2>
+                <h2>Commentaires</h2>
                 <div id="reviews-list">
                     <!-- Reviews will be dynamically added here -->
                 </div>
-                <a href="/templates/add_review.html" class="details-button" id="add-review-button">Add Review</a>
+                <a href="/templates/add_review.html" class="view-details-btn" id="add-review-button">Ajouter un commentaire <i class="fas fa-pen"></i></a>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2024 HBnB. All rights reserved.</p>
+        <p>&copy; 2025 HBnB. Tous droits réservés.</p>
     </footer>
 
     <script src="/static/js/auth.js"></script>

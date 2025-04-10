@@ -6,28 +6,50 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
+    background-color: #f8f9fa;
+    color: #333;
 }
 
 /* Header Styles */
 header {
     background-color: #fff;
-    padding: 1rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
-    height: 60px;
+    height: 50px;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
 }
 
 .login-button {
-    float: right;
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
+    padding: 0.6rem 1.2rem;
+    background-color: #FF5A5F;
     color: white;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.login-button:hover {
+    background-color: #FF3B41;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 /* Footer Styles */
@@ -36,49 +58,76 @@ footer {
     color: white;
     text-align: center;
     padding: 1rem;
-    position: fixed;
-    bottom: 0;
     width: 100%;
+    margin-top: 3rem;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
 }
 
 /* Navigation Bar */
 nav {
-    background-color: #f8f9fa;
-    padding: 1rem;
+    background-color: #fff;
+    padding: 0.8rem 2rem;
     margin-bottom: 2rem;
+    border-bottom: 1px solid #eaeaea;
+    display: flex;
+    gap: 1.5rem;
 }
 
 nav a {
-    margin-right: 1rem;
     text-decoration: none;
     color: #333;
+    font-weight: 500;
+    position: relative;
+    padding: 0.3rem 0;
+}
+
+nav a:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #FF5A5F;
+    transition: width 0.3s ease;
+}
+
+nav a:hover:after {
+    width: 100%;
 }
 
 /* Places List Container */
 #places-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
     padding: 20px;
 }
 
 /* Place Card Styles */
 .place-card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
+    border: none;
+    border-radius: 12px;
+    padding: 0;
     background: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
 .place-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
 }
 
 .place-card h3 {
     margin: 0 0 10px 0;
     color: #2c3e50;
+    font-size: 1.3rem;
 }
 
 .place-card p {
@@ -86,22 +135,35 @@ nav a {
     color: #666;
 }
 
+.place-card-content {
+    padding: 20px;
+}
+
 /* Filters Section */
 .filters {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    background: #f8f9fa;
-    margin-bottom: 20px;
+    padding: 25px;
+    background: white;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 #price-filter {
     width: 100%;
-    padding: 8px;
+    padding: 12px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
     background: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+#price-filter:focus {
+    border-color: #FF5A5F;
+    outline: none;
 }
 
 /* Main Content Area */
@@ -109,7 +171,7 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    margin-bottom: 60px; /* Pour éviter que le contenu ne soit caché par le footer */
+    margin-bottom: 60px;
 }
 
 /* Responsive Design */
@@ -119,22 +181,30 @@ main {
     }
     
     .place-card {
-        margin: 10px;
+        margin: 15px 0;
+    }
+    
+    header {
+        padding: 1rem;
+    }
+    
+    nav {
+        padding: 0.8rem 1rem;
     }
 }
 
 /* Place Details Page Specific Styles */
 .place-details {
     max-width: 1200px;
-    margin: 20px auto;
+    margin: 30px auto;
     padding: 20px;
 }
 
 .place-info {
     background: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
 /* Styles pour l'affichage de la localisation */
@@ -142,7 +212,7 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     background: none;
     border-radius: 0;
     padding: 0;
@@ -151,7 +221,8 @@ main {
 
 .place-info h1 {
     color: #333;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    font-size: 2rem;
 }
 
 .place-location {
@@ -163,18 +234,21 @@ main {
 
 .location-icon::before {
     content: "📍";
-    margin-right: 5px;
+    margin-right: 8px;
+    font-size: 1.2em;
 }
 
 .place-price {
-    color: #2ecc71;
+    color: #FF5A5F;
     font-weight: 600;
+    font-size: 1.2rem;
 }
 
 .price {
     font-size: 1.5em;
-    color: #2ecc71;
-    margin-bottom: 15px;
+    color: #FF5A5F;
+    margin-bottom: 20px;
+    font-weight: 700;
 }
 
 .description {
@@ -353,17 +427,15 @@ main {
 /* Place Image Styles */
 .place-image {
     width: 100%;
-    height: 200px;
+    height: 220px;
     overflow: hidden;
-    border-radius: 8px 8px 0 0;
-    margin-bottom: 15px;
 }
 
 .place-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
 }
 
 .place-image img:hover {
@@ -483,30 +555,31 @@ main {
 /* Styles pour la barre de recherche par localisation */
 .filter-group {
     display: flex;
-    margin-bottom: 15px;
     width: 100%;
+    margin-bottom: 15px;
 }
 
 .search-input {
     flex: 1;
-    padding: 8px 12px;
+    padding: 12px 15px;
     border: 1px solid #ddd;
-    border-radius: 5px 0 0 5px;
+    border-radius: 8px 0 0 8px;
     font-size: 16px;
 }
 
 .search-button {
-    padding: 8px 15px;
-    background-color: #007bff;
+    padding: 12px 20px;
+    background-color: #FF5A5F;
     color: white;
     border: none;
-    border-radius: 0 5px 5px 0;
+    border-radius: 0 8px 8px 0;
     cursor: pointer;
-    transition: background-color 0.2s;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
 }
 
 .search-button:hover {
-    background-color: #0056b3;
+    background-color: #FF3B41;
 }
 
 /* Ajustements pour les filtres */
@@ -519,11 +592,363 @@ main {
     
     .filter-group {
         margin-bottom: 0;
-        flex: 2;
+        flex: 1;
     }
     
     #price-filter {
-        flex: 1;
-        max-width: 200px;
+        max-width: 250px;
     }
+}
+
+/* Badge styles for features/amenities */
+.amenity-badge {
+    display: inline-block;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+/* Rating stars styling */
+.stars {
+    color: #FFD700;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+/* View details button */
+.view-details-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background-color: #FF5A5F;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(255, 90, 95, 0.3);
+}
+
+.view-details-btn i {
+    transition: transform 0.3s ease;
+}
+
+.view-details-btn:hover {
+    background-color: #FF3B41;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(255, 90, 95, 0.4);
+}
+
+.view-details-btn:hover i {
+    transform: translateX(5px);
+}
+
+/* Hero section for homepage */
+.hero-section {
+    position: relative;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 40px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #FF5A5F;
+    background-image: linear-gradient(135deg, #FF5A5F 0%, #FF3B41 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    color: white;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    color: white;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    color: white;
+}
+
+.hero-section .filters {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Quick filters */
+.quick-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-pill {
+    padding: 8px 15px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-pill:hover, .filter-pill.active {
+    background-color: #FF5A5F;
+    color: white;
+    border-color: #FF5A5F;
+}
+
+/* Guest information at bottom of cards */
+.guest-info {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.guest-info span {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    color: #666;
+}
+
+.guest-info span i {
+    margin-right: 5px;
+    font-size: 0.9rem;
+}
+
+/* Badge for superhost status */
+.superhost-badge {
+    background-color: #FF5A5F;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+/* Login page styles */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: calc(100vh - 200px);
+}
+
+.login-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    padding: 40px;
+    width: 100%;
+    max-width: 480px;
+}
+
+.login-card h2 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.login-subtitle {
+    color: #666;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #FF5A5F;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 90, 95, 0.2);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+}
+
+.remember-me input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.forgot-password {
+    color: #FF5A5F;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+.social-login {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.social-login p {
+    color: #888;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.social-login p::before,
+.social-login p::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.social-login p::before {
+    left: 0;
+}
+
+.social-login p::after {
+    right: 0;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.social-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.facebook {
+    background-color: #3b5998;
+}
+
+.google {
+    background-color: #db4437;
+}
+
+.twitter {
+    background-color: #1da1f2;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 25px;
+    color: #666;
+}
+
+.register-link a {
+    color: #FF5A5F;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 576px) {
+    .login-card {
+        padding: 25px;
+    }
+    
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .forgot-password {
+        margin-top: 10px;
+    }
+}
+
+.no-reviews {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+    font-style: italic;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin: 20px 0;
 } 
