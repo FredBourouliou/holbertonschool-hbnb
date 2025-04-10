@@ -8,6 +8,7 @@ des avis sur les logements, ainsi que pour lister les avis par logement.
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+from flask import request
 
 # Création du namespace pour les avis
 api = Namespace('reviews', description='Opérations liées aux avis')
@@ -80,10 +81,24 @@ class ReviewList(Resource):
         """
         review_data = api.payload
         
+        # Récupérer les paramètres d'URL s'ils sont présents
+        place_id_url = request.args.get('place_id')
+        user_id_url = request.args.get('user_id')
+        
+        # Si les paramètres sont fournis dans l'URL, les utiliser
+        if place_id_url and 'place_id' not in review_data:
+            review_data['place_id'] = place_id_url
+        if user_id_url and 'user_id' not in review_data:
+            review_data['user_id'] = user_id_url
+        
         # Récupérer l'identité de l'utilisateur et ses droits
         current_user_id = get_jwt_identity()
         claims = get_jwt()
         is_admin = claims.get('is_admin', False)
+        
+        # Si user_id n'est pas spécifié, utiliser l'utilisateur courant
+        if 'user_id' not in review_data:
+            review_data['user_id'] = current_user_id
         
         # Si ce n'est pas un admin et essaie de créer un avis pour quelqu'un d'autre
         if not is_admin and review_data.get('user_id') != current_user_id:

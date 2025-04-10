@@ -369,10 +369,21 @@ class HBnBFacade:
             if existing_review:
                 raise ValueError('L\'utilisateur a déjà noté ce logement')
                 
-            # Crée l'avis
-            review_data['place'] = place
-            review_data['user'] = user
-            return self.review_repo.create_review(review_data)
+            # Crée une copie des données pour éviter de modifier l'original
+            review_data_copy = review_data.copy()
+            
+            # Supprimer place_id et user_id du dictionnaire pour éviter les arguments en double
+            if 'place_id' in review_data_copy:
+                del review_data_copy['place_id']
+            if 'user_id' in review_data_copy:
+                del review_data_copy['user_id']
+            
+            # Ajouter place et user au dictionnaire
+            review_data_copy['place'] = place
+            review_data_copy['user'] = user
+            
+            # Crée l'avis avec les données modifiées
+            return self.review_repo.create_review(review_data_copy)
         except ValueError as e:
             raise e
 

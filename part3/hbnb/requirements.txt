@@ -20,4 +20,7 @@ sqlalchemy==2.0.27
 flask-sqlalchemy==3.1.1
 
 # PyMySQL : Pilote de base de données MySQL pour Python (utilisé avec SQLAlchemy)
-pymysql==1.1.0 
+pymysql==1.1.0
+
+# Flask-CORS : Extension de Flask pour la gestion des politiques de sécurité entre origines (CORS)
+flask-cors==4.0.0 

@@ -13,7 +13,7 @@ from app.api.v1.places import api as places_ns
 from app.api.v1.reviews import api as reviews_ns
 from app.api.v1.auth import api as auth_ns
 from config import DevelopmentConfig, config  # Configurations pour différents environnements
-from app.extensions import bcrypt, jwt, db  # Extensions Flask importées depuis extensions.py
+from app.extensions import bcrypt, jwt, db, cors  # Extensions Flask importées depuis extensions.py
 import os
 
 def create_app(config_class=DevelopmentConfig):
@@ -36,6 +36,12 @@ def create_app(config_class=DevelopmentConfig):
     bcrypt.init_app(app)  # Pour le hachage des mots de passe
     jwt.init_app(app)     # Pour l'authentification JWT
     db.init_app(app)      # SQLAlchemy pour l'ORM
+    
+    # Configuration CORS pour autoriser les requêtes du frontend
+    cors.init_app(app, origins=["http://localhost:8000", "http://127.0.0.1:8000"], 
+                 supports_credentials=True, 
+                 allow_headers=["Content-Type", "Authorization"],
+                 methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
     
     # Création de l'API avec Swagger UI accessible à /api/v1/
     api = Api(app, version='1.0', title='HBnB API', description='HBnB Application API', doc='/api/v1/')

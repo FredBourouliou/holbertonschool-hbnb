@@ -8,6 +8,9 @@ Ce module définit les configurations pour différents environnements
 import os
 from datetime import timedelta
 
+# Chemin absolu du répertoire de base
+BASEDIR = os.path.abspath(os.path.dirname(__file__))
+
 class Config:
     """
     Classe de configuration de base.
@@ -29,7 +32,7 @@ class Config:
     # Désactivation du suivi des modifications pour améliorer les performances
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # URI de la base de données par défaut (SQLite)
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///instance/hbnb_dev.db')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', f'sqlite:///{os.path.join(BASEDIR, "hbnb_dev.db")}')
 
 class DevelopmentConfig(Config):
     """
@@ -37,8 +40,8 @@ class DevelopmentConfig(Config):
     Active le mode debug et utilise une base de données SQLite spécifique au développement.
     """
     DEBUG = True
-    # Base de données SQLite pour le développement dans le dossier 'instance'
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///instance/hbnb_dev.db')
+    # Base de données SQLite pour le développement dans le répertoire courant
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', f'sqlite:///{os.path.join(BASEDIR, "hbnb_dev.db")}')
 
 class TestingConfig(Config):
     """
