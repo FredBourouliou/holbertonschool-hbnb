@@ -1,0 +1,529 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+    background-color: #fff;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.logo {
+    height: 60px;
+}
+
+.login-button {
+    float: right;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+nav a {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #333;
+}
+
+/* Places List Container */
+#places-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Place Card Styles */
+.place-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.place-card:hover {
+    transform: translateY(-5px);
+}
+
+.place-card h3 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+}
+
+.place-card p {
+    margin: 10px 0;
+    color: #666;
+}
+
+/* Filters Section */
+.filters {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: #f8f9fa;
+    margin-bottom: 20px;
+}
+
+#price-filter {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+}
+
+/* Main Content Area */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-bottom: 60px; /* Pour éviter que le contenu ne soit caché par le footer */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #places-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .place-card {
+        margin: 10px;
+    }
+}
+
+/* Place Details Page Specific Styles */
+.place-details {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.place-info {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Styles pour l'affichage de la localisation */
+.place-card .place-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    background: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+}
+
+.place-info h1 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.place-location {
+    color: #007bff;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.location-icon::before {
+    content: "📍";
+    margin-right: 5px;
+}
+
+.place-price {
+    color: #2ecc71;
+    font-weight: 600;
+}
+
+.price {
+    font-size: 1.5em;
+    color: #2ecc71;
+    margin-bottom: 15px;
+}
+
+.description {
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.details {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.details p {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.details strong {
+    color: #555;
+    display: inline-block;
+    width: 120px;
+}
+
+.amenities {
+    margin: 20px 0;
+}
+
+.amenities ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.amenities li {
+    background: #e8f5e9;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9em;
+}
+
+.reviews {
+    margin-top: 30px;
+}
+
+.review-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.review-text {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.review-user {
+    color: #666;
+    font-style: italic;
+}
+
+.review-date {
+    color: #999;
+    font-size: 0.9em;
+}
+
+.error {
+    color: #e74c3c;
+    text-align: center;
+    padding: 20px;
+    background: #fde2e2;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+/* Messages d'erreur et de succès */
+.error-message {
+    color: #e74c3c;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #fde2e2;
+    border-radius: 5px;
+    border-left: 4px solid #e74c3c;
+}
+
+.success-message {
+    color: #2ecc71;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #e8f5e9;
+    border-radius: 5px;
+    border-left: 4px solid #2ecc71;
+}
+
+/* Amélioration du formulaire d'ajout de review */
+.add-review {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    min-height: 150px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.form button {
+    background-color: #2ecc71;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.form button:hover {
+    background-color: #27ae60;
+}
+
+.form-links {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.form-links a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.form-links a:hover {
+    text-decoration: underline;
+}
+
+/* Champ de rating */
+.rating-field {
+    margin: 10px 0;
+}
+
+.rating-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.rating-field select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+/* Place Image Styles */
+.place-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 15px;
+}
+
+.place-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.place-image img:hover {
+    transform: scale(1.05);
+}
+
+/* Pour la page de détails */
+.place-detail-image {
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.place-detail-image img {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Styles pour les évaluations détaillées */
+.detailed-ratings {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.detailed-ratings h3 {
+    margin-top: 0;
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.detailed-ratings .text-muted {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.rating-detailed {
+    margin-bottom: 10px;
+}
+
+.rating-detailed label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.detailed-rating {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Styles pour l'affichage des évaluations détaillées dans les avis */
+.detailed-ratings-display {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.rating-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.rating-label {
+    font-size: 0.9em;
+    color: #555;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.rating-stars {
+    color: #ffb400;
+    letter-spacing: 2px;
+}
+
+.rating-text {
+    font-size: 0.8em;
+    color: #777;
+    margin-left: 8px;
+    font-style: italic;
+}
+
+/* Styles réactifs pour les évaluations détaillées */
+@media (max-width: 576px) {
+    .detailed-ratings-display {
+        grid-template-columns: 1fr;
+    }
+    
+    .place-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .place-location, .place-price {
+        margin-bottom: 5px;
+    }
+}
+
+/* Styles pour la barre de recherche par localisation */
+.filter-group {
+    display: flex;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.search-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+    font-size: 16px;
+}
+
+.search-button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Ajustements pour les filtres */
+@media (min-width: 768px) {
+    .filters {
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .filter-group {
+        margin-bottom: 0;
+        flex: 2;
+    }
+    
+    #price-filter {
+        flex: 1;
+        max-width: 200px;
+    }
+} 
